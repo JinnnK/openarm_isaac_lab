@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-import math
-
 from isaaclab.utils import configclass
 
-from isaaclab.managers import EventTermCfg as EventTerm
 from .. import mdp
 from ..reach_env_cfg import (
     ReachEnvCfg,
 )
 
-from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
+##
+# Pre-defined configs
+##
+from openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 from isaaclab.assets.articulation import ArticulationCfg
 
 ##

@@ -39,8 +39,6 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from . import mdp
 
-import math
-
 ##
 # Scene definition
 ##

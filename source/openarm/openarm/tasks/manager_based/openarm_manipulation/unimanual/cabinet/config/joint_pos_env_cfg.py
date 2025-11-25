@@ -23,8 +23,6 @@ from ..cabinet_env_cfg import (  # isort: skip
     CabinetEnvCfg,
 )
 
-import math
-
 ##
 # Pre-defined configs
 ##
