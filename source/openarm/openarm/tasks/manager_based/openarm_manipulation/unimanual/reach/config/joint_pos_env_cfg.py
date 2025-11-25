@@ -23,9 +23,7 @@ from ..reach_env_cfg import (
     ReachEnvCfg,
 )
 
-from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm_unimanual import (
-    OPEN_ARM_CFG,
-)
+from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 from isaaclab.assets.articulation import ArticulationCfg
 
 ##
@@ -41,7 +39,7 @@ class OpenArmReachEnvCfg(ReachEnvCfg):
         super().__post_init__()
 
         # switch robot to OpenArm
-        self.scene.robot = OPEN_ARM_CFG.replace(
+        self.scene.robot = OPENARM_UNI_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot",
             init_state=ArticulationCfg.InitialStateCfg(
                 joint_pos={

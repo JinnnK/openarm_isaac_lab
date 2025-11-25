@@ -28,7 +28,7 @@ import math
 ##
 # Pre-defined configs
 ##
-from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm_unimanual import OPEN_ARM_CFG
+from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 
 
 @configclass
@@ -38,7 +38,7 @@ class OpenArmCabinetEnvCfg(CabinetEnvCfg):
         super().__post_init__()
 
         # Set OpenArm as robot
-        self.scene.robot = OPEN_ARM_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        self.scene.robot = OPENARM_UNI_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
         # Set Actions for the specific robot type (OpenArm)
         self.actions.arm_action = mdp.JointPositionActionCfg(
