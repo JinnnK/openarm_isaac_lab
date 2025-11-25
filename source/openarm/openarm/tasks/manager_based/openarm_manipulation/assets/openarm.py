@@ -61,8 +61,8 @@ OPENARM_BI_CFG = ArticulationCfg(
             "openarm_right_joint5": 0.0,
             "openarm_right_joint6": 0.0,
             "openarm_right_joint7": 0.0,
-            "openarm_left_finger_joint.*": 0.044,
-            "openarm_right_finger_joint.*": 0.044,
+            "openarm_left_finger_joint.*": 0.0,
+            "openarm_right_finger_joint.*": 0.0,
         },
     ),
     actuators={

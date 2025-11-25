@@ -16,14 +16,12 @@ import math
 
 from isaaclab.utils import configclass
 
-from isaaclab.managers import EventTermCfg as EventTerm
 from .. import mdp
 from ..reach_env_cfg import (
     ReachEnvCfg,
 )
 
 from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_BI_HIGH_PD_CFG
-from isaaclab.assets.articulation import ArticulationCfg
 
 ##
 # Environment configuration
@@ -38,29 +36,7 @@ class OpenArmReachEnvCfg(ReachEnvCfg):
         super().__post_init__()
 
         # switch robot to OpenArm
-        self.scene.robot = OPENARM_BI_HIGH_PD_CFG.replace(
-            prim_path="{ENV_REGEX_NS}/Robot",
-            init_state=ArticulationCfg.InitialStateCfg(
-                joint_pos={
-                    "openarm_left_joint1": 0.0,
-                    "openarm_left_joint2": 0.0,
-                    "openarm_left_joint3": 0.0,
-                    "openarm_left_joint4": 0.0,
-                    "openarm_left_joint5": 0.0,
-                    "openarm_left_joint6": 0.0,
-                    "openarm_left_joint7": 0.0,
-                    "openarm_right_joint1": 0.0,
-                    "openarm_right_joint2": 0.0,
-                    "openarm_right_joint3": 0.0,
-                    "openarm_right_joint4": 0.0,
-                    "openarm_right_joint5": 0.0,
-                    "openarm_right_joint6": 0.0,
-                    "openarm_right_joint7": 0.0,
-                    "openarm_left_finger_joint.*": 0.0,
-                    "openarm_right_finger_joint.*": 0.0,
-                },  # Close the gripper
-            ),
-        )
+        self.scene.robot = OPENARM_BI_HIGH_PD_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
         # override rewards
         self.rewards.left_end_effector_position_tracking.params["asset_cfg"].body_names = ["openarm_left_hand"]

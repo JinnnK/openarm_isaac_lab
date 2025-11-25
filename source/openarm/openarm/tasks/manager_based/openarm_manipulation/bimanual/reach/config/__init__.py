@@ -16,6 +16,10 @@ import gymnasium as gym
 
 from . import agents
 
+##
+# Register Gym environments.
+##
+
 gym.register(
     id="Isaac-Reach-OpenArm-Bi-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
