@@ -16,7 +16,7 @@
 # Pre-defined configs
 ##
 
-from openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
+from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 
 from isaaclab.assets.articulation import ArticulationCfg
 from isaaclab.utils import configclass
