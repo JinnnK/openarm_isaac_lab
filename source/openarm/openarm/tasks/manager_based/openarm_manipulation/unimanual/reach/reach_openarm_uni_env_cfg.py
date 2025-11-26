@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
-from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets.articulation import ArticulationCfg
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.managers import ActionTermCfg as ActionTerm
@@ -33,8 +32,6 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
 from . import mdp
-
-import math
 
 ##
 # Scene definition
@@ -60,6 +57,40 @@ class ReachSceneCfg(InteractiveSceneCfg):
         init_state=AssetBaseCfg.InitialStateCfg(
             pos=(0.55, 0.0, 0.0), rot=(0.70711, 0.0, 0.0, 0.70711)
         ),
+    )
+
+    # robots
+    robot: ArticulationCfg = MISSING
+
+    # lights
+    light = AssetBaseCfg(
+        prim_path="/World/light",
+        spawn=sim_utils.DomeLightCfg(color=(0.75, 0.75, 0.75), intensity=2500.0),
+    )
+
+
+##
+# MDP settings
+##
+
+
+@configclass
+class ReachSceneCfg(InteractiveSceneCfg):
+    """Configuration for the scene with a robotic arm."""
+
+    # world
+    ground = AssetBaseCfg(
+        prim_path="/World/ground",
+        spawn=sim_utils.GroundPlaneCfg(),
+        init_state=AssetBaseCfg.InitialStateCfg(pos=(0.0, 0.0, -1.05)),
+    )
+
+    table = AssetBaseCfg(
+        prim_path="{ENV_REGEX_NS}/Table",
+        spawn=sim_utils.UsdFileCfg(
+            usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd",
+        ),
+        init_state=AssetBaseCfg.InitialStateCfg(pos=(0.55, 0.0, 0.0), rot=(0.70711, 0.0, 0.0, 0.70711)),
     )
 
     # robots
@@ -117,36 +148,40 @@ class ObservationsCfg:
         joint_pos = ObsTerm(
             func=mdp.joint_pos_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=[
-                                                                  "openarm_joint1",
-                                                                  "openarm_joint2",
-                                                                  "openarm_joint3",
-                                                                  "openarm_joint4",
-                                                                  "openarm_joint5",
-                                                                  "openarm_joint6",
-                                                                  "openarm_joint7",
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_joint1",
+                        "openarm_joint2",
+                        "openarm_joint3",
+                        "openarm_joint4",
+                        "openarm_joint5",
+                        "openarm_joint6",
+                        "openarm_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
         joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=[
-                                                                  "openarm_joint1",
-                                                                  "openarm_joint2",
-                                                                  "openarm_joint3",
-                                                                  "openarm_joint4",
-                                                                  "openarm_joint5",
-                                                                  "openarm_joint6",
-                                                                  "openarm_joint7",
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_joint1",
+                        "openarm_joint2",
+                        "openarm_joint3",
+                        "openarm_joint4",
+                        "openarm_joint5",
+                        "openarm_joint6",
+                        "openarm_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
-        pose_command = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "ee_pose"}
-        )
+        pose_command = ObsTerm(func=mdp.generated_commands, params={"command_name": "ee_pose"})
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
@@ -207,15 +242,20 @@ class RewardsCfg:
     joint_vel = RewTerm(
         func=mdp.joint_vel_l2,
         weight=-0.0001,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=[
-                                                                  "openarm_joint1",
-                                                                  "openarm_joint2",
-                                                                  "openarm_joint3",
-                                                                  "openarm_joint4",
-                                                                  "openarm_joint5",
-                                                                  "openarm_joint6",
-                                                                  "openarm_joint7",
-                                                                  ])},
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot",
+                joint_names=[
+                    "openarm_joint1",
+                    "openarm_joint2",
+                    "openarm_joint3",
+                    "openarm_joint4",
+                    "openarm_joint5",
+                    "openarm_joint6",
+                    "openarm_joint7",
+                ],
+            )
+        },
     )
 
 

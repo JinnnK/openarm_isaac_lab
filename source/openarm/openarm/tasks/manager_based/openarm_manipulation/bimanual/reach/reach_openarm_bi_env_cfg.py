@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
-from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets.articulation import ArticulationCfg
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.managers import ActionTermCfg as ActionTerm
@@ -29,12 +28,9 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
-from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
 from . import mdp
-
-import math
 
 ##
 # Scene definition
@@ -122,14 +118,18 @@ class ObservationsCfg:
         left_joint_pos = ObsTerm(
             func=mdp.joint_pos_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_left_joint1",
-                                                                    "openarm_left_joint2",
-                                                                    "openarm_left_joint3",
-                                                                    "openarm_left_joint4",
-                                                                    "openarm_left_joint5",
-                                                                    "openarm_left_joint6",
-                                                                    "openarm_left_joint7",
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_left_joint1",
+                        "openarm_left_joint2",
+                        "openarm_left_joint3",
+                        "openarm_left_joint4",
+                        "openarm_left_joint5",
+                        "openarm_left_joint6",
+                        "openarm_left_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
@@ -137,14 +137,18 @@ class ObservationsCfg:
         right_joint_pos = ObsTerm(
             func=mdp.joint_pos_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_right_joint1",
-                                                                    "openarm_right_joint2",
-                                                                    "openarm_right_joint3",
-                                                                    "openarm_right_joint4",
-                                                                    "openarm_right_joint5",
-                                                                    "openarm_right_joint6",
-                                                                    "openarm_right_joint7"
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_right_joint1",
+                        "openarm_right_joint2",
+                        "openarm_right_joint3",
+                        "openarm_right_joint4",
+                        "openarm_right_joint5",
+                        "openarm_right_joint6",
+                        "openarm_right_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
@@ -152,43 +156,43 @@ class ObservationsCfg:
         left_joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_left_joint1",
-                                                                    "openarm_left_joint2",
-                                                                    "openarm_left_joint3",
-                                                                    "openarm_left_joint4",
-                                                                    "openarm_left_joint5",
-                                                                    "openarm_left_joint6",
-                                                                    "openarm_left_joint7",
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_left_joint1",
+                        "openarm_left_joint2",
+                        "openarm_left_joint3",
+                        "openarm_left_joint4",
+                        "openarm_left_joint5",
+                        "openarm_left_joint6",
+                        "openarm_left_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
         right_joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
             params={
-                "asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_right_joint1",
-                                                                    "openarm_right_joint2",
-                                                                    "openarm_right_joint3",
-                                                                    "openarm_right_joint4",
-                                                                    "openarm_right_joint5",
-                                                                    "openarm_right_joint6",
-                                                                    "openarm_right_joint7"
-                                                                  ])
+                "asset_cfg": SceneEntityCfg(
+                    "robot",
+                    joint_names=[
+                        "openarm_right_joint1",
+                        "openarm_right_joint2",
+                        "openarm_right_joint3",
+                        "openarm_right_joint4",
+                        "openarm_right_joint5",
+                        "openarm_right_joint6",
+                        "openarm_right_joint7",
+                    ],
+                )
             },
             noise=Unoise(n_min=-0.01, n_max=0.01),
         )
-        left_pose_command = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "left_ee_pose"}
-        )
-        right_pose_command = ObsTerm(
-            func=mdp.generated_commands, params={"command_name": "right_ee_pose"}
-        )
-        left_actions = ObsTerm(func=mdp.last_action,
-                params={
-                "action_name": "left_arm_action"})
-        right_actions = ObsTerm(func=mdp.last_action,
-                params={
-                "action_name": "right_arm_action"})
+        left_pose_command = ObsTerm(func=mdp.generated_commands, params={"command_name": "left_ee_pose"})
+        right_pose_command = ObsTerm(func=mdp.generated_commands, params={"command_name": "right_ee_pose"})
+        left_actions = ObsTerm(func=mdp.last_action, params={"action_name": "left_arm_action"})
+        right_actions = ObsTerm(func=mdp.last_action, params={"action_name": "right_arm_action"})
 
         def __post_init__(self):
             self.enable_corruption = True
@@ -278,26 +282,38 @@ class RewardsCfg:
     left_joint_vel = RewTerm(
         func=mdp.joint_vel_l2,
         weight=-0.0001,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_left_joint1",
-                                                                    "openarm_left_joint2",
-                                                                    "openarm_left_joint3",
-                                                                    "openarm_left_joint4",
-                                                                    "openarm_left_joint5",
-                                                                    "openarm_left_joint6",
-                                                                    "openarm_left_joint7",
-                                                                  ])},
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot",
+                joint_names=[
+                    "openarm_left_joint1",
+                    "openarm_left_joint2",
+                    "openarm_left_joint3",
+                    "openarm_left_joint4",
+                    "openarm_left_joint5",
+                    "openarm_left_joint6",
+                    "openarm_left_joint7",
+                ],
+            )
+        },
     )
     right_joint_vel = RewTerm(
         func=mdp.joint_vel_l2,
         weight=-0.0001,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["openarm_right_joint1",
-                                                                    "openarm_right_joint2",
-                                                                    "openarm_right_joint3",
-                                                                    "openarm_right_joint4",
-                                                                    "openarm_right_joint5",
-                                                                    "openarm_right_joint6",
-                                                                    "openarm_right_joint7"
-                                                                  ])},
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot",
+                joint_names=[
+                    "openarm_right_joint1",
+                    "openarm_right_joint2",
+                    "openarm_right_joint3",
+                    "openarm_right_joint4",
+                    "openarm_right_joint5",
+                    "openarm_right_joint6",
+                    "openarm_right_joint7",
+                ],
+            )
+        },
     )
 
 

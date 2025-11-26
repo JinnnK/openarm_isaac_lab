@@ -20,8 +20,6 @@ The following configurations are available:
 * :obj:`OPENARM_BI_HIGH_PD_CFG`: OpenArm robot with two arms and stiffer PD control.
 * :obj:`OPENARM_UNI_CFG`: OpenArm robot with one arm.
 * :obj:`OPENARM_UNI_HIGH_PD_CFG`: OpenArm robot with one arm and stiffer PD control.
-
-Reference: https://github.com/enactic/openarm_isaac_lab
 """
 
 import isaaclab.sim as sim_utils

@@ -13,26 +13,24 @@
 # limitations under the License.
 
 
+import math
+
+from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
+
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.sensors import FrameTransformerCfg
-from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from .. import mdp
-from ..lift_env_cfg import (
-    LiftEnvCfg,
-)
-
-import math
+from ..lift_openarm_env_cfg import LiftEnvCfg
 
 ##
 # Pre-defined configs
 ##
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
-from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 
 
 @configclass
@@ -51,7 +49,7 @@ class OpenArmCubeLiftEnvCfg(LiftEnvCfg):
                 "openarm_joint.*",
             ],
             scale=0.5,
-            use_default_offset=True,  # False
+            use_default_offset=True,
         )
 
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
@@ -68,9 +66,7 @@ class OpenArmCubeLiftEnvCfg(LiftEnvCfg):
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(
-                pos=[0.4, 0, 0.055], rot=[1, 0, 0, 0]
-            ),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.4, 0, 0.055], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
                 scale=(0.8, 0.8, 0.8),

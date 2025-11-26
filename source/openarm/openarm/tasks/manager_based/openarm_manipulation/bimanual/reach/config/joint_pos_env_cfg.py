@@ -15,7 +15,7 @@
 from isaaclab.utils import configclass
 
 from .. import mdp
-from ..reach_env_cfg import (
+from ..reach_openarm_bi_env_cfg import (
     ReachEnvCfg,
 )
 

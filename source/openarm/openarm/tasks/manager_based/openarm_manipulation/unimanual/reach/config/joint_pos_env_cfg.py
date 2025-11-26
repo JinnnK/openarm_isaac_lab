@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from isaaclab.utils import configclass
-
-from .. import mdp
-from ..reach_env_cfg import (
-    ReachEnvCfg,
-)
-
 ##
 # Pre-defined configs
 ##
+
 from openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
+
 from isaaclab.assets.articulation import ArticulationCfg
+from isaaclab.utils import configclass
+
+from .. import mdp
+from ..reach_openarm_uni_env_cfg import ReachEnvCfg
 
 ##
 # Environment configuration

@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+##
+# Pre-defined configs
+##
+from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
+
+
 from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.utils import configclass
@@ -22,11 +28,6 @@ from ..cabinet_env_cfg import (  # isort: skip
     FRAME_MARKER_SMALL_CFG,
     CabinetEnvCfg,
 )
-
-##
-# Pre-defined configs
-##
-from source.openarm.openarm.tasks.manager_based.openarm_manipulation.assets.openarm import OPENARM_UNI_CFG
 
 
 @configclass
@@ -63,7 +64,7 @@ class OpenArmCabinetEnvCfg(CabinetEnvCfg):
                 FrameTransformerCfg.FrameCfg(
                     prim_path="{ENV_REGEX_NS}/Robot/openarm_ee_tcp",
                     name="ee_tcp",
-                     offset=OffsetCfg(
+                    offset=OffsetCfg(
                         pos=(0.0, 0.0, -0.003),
                     ),
                 ),
