@@ -1,7 +1,7 @@
 # OpenArm Isaac Lab
 
 [![IsaacSim](https://img.shields.io/badge/IsaacSim-5.1.0-silver.svg)](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/index.html)
-[![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.3.0-silver)](https://isaac-sim.github.io/IsaacLab)
+[![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.3.2-silver)](https://isaac-sim.github.io/IsaacLab)
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://docs.python.org/3/whatsnew/3.11.html)
 [![Linux platform](https://img.shields.io/badge/platform-linux--64-orange.svg)](https://releases.ubuntu.com/22.04/)
 [![License](https://img.shields.io/badge/license-Apache2.0-yellow.svg)](https://opensource.org/license/apache-2-0)
@@ -36,7 +36,6 @@ This repository has been tested with:
     - [Training Model](#training-model)
     - [Replay Trained Model](#replay-trained-model)
     - [Analyze logs](#analyze-logs)
-  - [Sim2Real Deployment using OpenArm](#sim2real-deployment-using-openarm)
   - [Related links](#related-links)
   - [License](#license)
   - [Code of Conduct](#code-of-conduct)
@@ -144,10 +143,6 @@ python -m tensorboard.main --logdir=logs
 ```
 
 And open the google and go to `http://localhost:6006/`
-
-## Sim2Real Deployment using OpenArm
-
-Coming soon...
 
 ## Related links
 
