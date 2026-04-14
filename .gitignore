@@ -19,3 +19,5 @@ outputs
 .vscode
 */tutorials/
 datasets
+source/openarm/openarm/tasks/manager_based/openarm_manipulation/usds/openarm_v20
+**/openarm.egg-info/**

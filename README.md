@@ -19,7 +19,7 @@ It enables research and development in **reinforcement learning (RL)**, **imitat
 This repository has been tested with:
 - **Ubuntu 22.04**
 - **Isaac Sim v5.1.0**
-- **Isaac Lab v2.3.0**
+- **Isaac Lab v2.3.2**
 - **Python 3.11**
 
 ---
@@ -36,7 +36,6 @@ This repository has been tested with:
     - [Training Model](#training-model)
     - [Replay Trained Model](#replay-trained-model)
     - [Analyze logs](#analyze-logs)
-  - [Sim2sim](#sim2sim)
   - [Sim2Real Deployment using OpenArm](#sim2real-deployment-using-openarm)
   - [Related links](#related-links)
   - [License](#license)
@@ -48,13 +47,13 @@ This repository has been tested with:
 
 1. Pull the minimal Isaac Lab container
 ```bash
-docker pull nvcr.io/nvidia/isaac-lab:2.3.0
+docker pull nvcr.io/nvidia/isaac-lab:2.3.2
 ```
 
 2. Create container
 ```bash
 xhost +
-docker run --name isaac-lab --entrypoint bash -it --gpus all --rm -e "ACCEPT_EULA=Y" --network=host \
+docker run --name isaac-lab --entrypoint bash -it --gpus all -e "ACCEPT_EULA=Y" --rm --network=host \
    -e "PRIVACY_CONSENT=Y" \
    -e DISPLAY \
    -v $HOME/.Xauthority:/root/.Xauthority \
@@ -66,7 +65,7 @@ docker run --name isaac-lab --entrypoint bash -it --gpus all --rm -e "ACCEPT_EUL
    -v ~/docker/isaac-sim/logs:/root/.nvidia-omniverse/logs:rw \
    -v ~/docker/isaac-sim/data:/root/.local/share/ov/data:rw \
    -v ~/docker/isaac-sim/documents:/root/Documents:rw \
-   nvcr.io/nvidia/isaac-lab:2.3.0
+   nvcr.io/nvidia/isaac-lab:2.3.2
 ```
 
 3. Clone git at your HOME directory
@@ -123,6 +122,8 @@ Replace `<TASK_NAME>` and `<POLICY_NAME>` with one of the following available ta
 | Lift a cube             | `Isaac-Lift-Cube-OpenArm-v0`   | `rsl_rl`, `rl_games`, `skrl` | <img src="video/openarm-lift-demo.gif" width="400"/>           |
 | Open a cabinet's drawer | `Isaac-Open-Drawer-OpenArm-v0` | `rsl_rl`, `rl_games`, `skrl`        | <img src="video/openarm-drawer-demo.gif" width="400"/>         |
 | Reach target position (Bimanual)  | `Isaac-Reach-OpenArm-Bi-v0`    | `rsl_rl`, `rl_games`, `skrl`        | <img src="video/openarm-bi-reach-demo.gif" width="400"/>          |
+| Reach target position (v20)  | `Isaac-Reach-OpenArm-v20-v0`    | `rsl_rl`, `rl_games`, `skrl`        | <img src="video/openarm-bi-reach-demo.gif" width="400"/>          |
+
 
 ### Training Model
 
@@ -143,11 +144,6 @@ python -m tensorboard.main --logdir=logs
 ```
 
 And open the google and go to `http://localhost:6006/`
-
-## Sim2sim
-<img src="video/sim2sim-reach-demo.gif" width="700"/>
-
-Coming soon...
 
 ## Sim2Real Deployment using OpenArm
 
