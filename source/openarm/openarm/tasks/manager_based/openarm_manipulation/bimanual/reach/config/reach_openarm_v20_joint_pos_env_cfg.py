@@ -18,7 +18,7 @@ from isaaclab.utils import configclass
 
 from isaaclab.managers import EventTermCfg as EventTerm
 from .. import mdp
-from ..reach_env_cfg import (
+from ..reach_openarm_v20_env_cfg import (
     ReachEnvCfg,
 )
 
@@ -42,26 +42,6 @@ class OpenArmReachEnvCfg(ReachEnvCfg):
         # switch robot to OpenArm
         self.scene.robot = OPEN_ARM_HIGH_PD_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot",
-            init_state=ArticulationCfg.InitialStateCfg(
-                joint_pos={
-                    "openarm_left_joint1": 0.0,
-                    "openarm_left_joint2": 0.0,
-                    "openarm_left_joint3": 0.0,
-                    "openarm_left_joint4": 0.0,
-                    "openarm_left_joint5": 0.0,
-                    "openarm_left_joint6": 0.0,
-                    "openarm_left_joint7": 0.0,
-                    "openarm_right_joint1": 0.0,
-                    "openarm_right_joint2": 0.0,
-                    "openarm_right_joint3": 0.0,
-                    "openarm_right_joint4": 0.0,
-                    "openarm_right_joint5": 0.0,
-                    "openarm_right_joint6": 0.0,
-                    "openarm_right_joint7": 0.0,
-                    "openarm_left_finger_joint.*": 0.0,
-                    "openarm_right_finger_joint.*": 0.0,
-                },  # Close the gripper
-            ),
         )
 
         # override rewards
